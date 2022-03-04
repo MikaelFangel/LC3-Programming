@@ -21,6 +21,16 @@ PUSH            AND     R5,R5,#0
                 ADD     R2,R6,R1        ; Compare stack pointer to x3FFB
                 BRz     fail_exit       ; Branch if stack is full
 ;
+PEEK            ST      R1,Save1        ; Save registers that
+                ST      R2,Save2        ; are needed by PEEK
+                LD      R1,EMPTY        ; EMPTY contains -x4000
+                ADD     R2,R6,R1        ; Compare stack pointer to -x4000
+                BRz     fail_exit       ; Branch if stack is empty
+;              
+                LDR     R0,R6,#0        ; The actual "peek"
+                BRnzp   success_exit
+;
+                LDR     R0,R6,#0        ; The actual "pop"
                 ADD     R6,R6,#-1       ; Adjust statck pointer
                 STR     R0,R6,#0        ; The actual push
 success_exit    LD      R2,Save2        ; Restore original
