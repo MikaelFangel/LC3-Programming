@@ -4,7 +4,7 @@
         LD      R6,POP
         LD      R4,PUSH
         JSRR    R4
-        AND     R0,R0,#
+        AND     R0,R0,#0
         LD      R4,POP
         JSRR    R4
         HALT
